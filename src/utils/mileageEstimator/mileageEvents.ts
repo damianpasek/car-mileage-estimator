@@ -20,7 +20,7 @@ export const getMostRecentMileage = (car: ICar, estimationDate: Date): IMileageE
 }
 
 export const getNumberOfDaysToEstimate = (mostRecentDate: Date, estimatedDate: Date): number => {
-  const daysDifference = differenceInCalendarDays(mostRecentDate, estimatedDate)
+  const daysDifference = differenceInCalendarDays(estimatedDate, mostRecentDate)
 
   if (daysDifference < 0) throw new Error('Days to estimate cannot be below zero')
 

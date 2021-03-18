@@ -42,7 +42,7 @@ describe('Mileage events', () => {
 
   describe('getNumberOfDaysToEstimate', () => {
     it.each([
-      ['2021-03-18', '2021-03-10', 8],
+      ['2021-03-10', '2021-03-18', 8],
       ['2021-03-10', '2021-03-10', 0],
     ] as [string, string, number][])(
       'for given dates %s, %s it should return %i',
@@ -52,7 +52,7 @@ describe('Mileage events', () => {
     )
 
     it('should throw an error when difference is less than 0', () => {
-      expect(() => getNumberOfDaysToEstimate(new Date('2021-03-10'), new Date('2021-03-17')))
+      expect(() => getNumberOfDaysToEstimate(new Date('2021-03-17'), new Date('2021-03-10')))
         .toThrow('Days to estimate cannot be below zero')
     })
   })

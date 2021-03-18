@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Project for estimating mileage of car based on historical data",
   "author": "Damian Pasek <damianpasek@gmail.com>",
+  "license": "MIT",
   "scripts": {
     "start": "ts-node src/estimator",
     "lint": "eslint src --ext ts,js",
