@@ -1,4 +1,5 @@
 import { mockedCars } from '../../../__mocks__/car.mocks'
+import { EstimateDateError } from '../../errors'
 import {
   getFirstRegistrationEvent,
   getMostRecentMileage,
@@ -53,7 +54,7 @@ describe('Mileage events', () => {
 
     it('should throw an error when difference is less than 0', () => {
       expect(() => getNumberOfDaysToEstimate(new Date('2021-03-17'), new Date('2021-03-10')))
-        .toThrow('Days to estimate cannot be below zero')
+        .toThrow(new EstimateDateError('Days to estimate cannot be below zero'))
     })
   })
 })

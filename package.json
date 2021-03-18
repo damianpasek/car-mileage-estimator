@@ -5,7 +5,6 @@
   "author": "Damian Pasek <damianpasek@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node src/estimator",
     "lint": "eslint src --ext ts,js",
     "test": "TZ=UTC jest ."
   },
