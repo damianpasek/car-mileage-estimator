@@ -8,7 +8,7 @@ export const getFirstRegistrationEvent = (car: ICar): IMileageEvent => ({
   mileage: 0,
 })
 
-export const getMostRecentMileage = (car: ICar, estimationDate: Date): IMileageEvent => {
+export const getMostRecentMileageEvent = (car: ICar, estimationDate: Date): IMileageEvent => {
   const { mileageEvents } = car
 
   if (!mileageEvents.length) return getFirstRegistrationEvent(car)

@@ -1,10 +1,10 @@
 import { chain, nth, sortBy } from 'lodash'
 import differenceInCalendarDays from 'date-fns/differenceInCalendarDays'
 
+import { DEFAULT_YEARLY_MILEAGE } from '../../constants/yearlyMileage'
 import { ICar, IMileageEvent } from '../../interfaces/Car'
-import { roundToHundredths } from '../mathRound'
-
-const DEFAULT_YEARLY_MILEAGE = 7900
+import { OdometerError } from '../errors'
+import { getFirstRegistrationEvent } from './mileageEvents'
 
 const estimateYearlyMileage = ([previousMileage, currentMileage]: [IMileageEvent, IMileageEvent]): number => {
   const daysDifference = differenceInCalendarDays(currentMileage.date, previousMileage.date)
@@ -13,24 +13,24 @@ const estimateYearlyMileage = ([previousMileage, currentMileage]: [IMileageEvent
   return mileageDifference / daysDifference * 365
 }
 
+const validateOdometer = ([previousMileage, currentMileage]: [IMileageEvent, IMileageEvent]): boolean => {
+  if (previousMileage.mileage > currentMileage.mileage) throw new OdometerError()
+  return true
+}
+
 export const getYearlyMileage = (car: ICar): number => {
   const { mileageEvents } = car
 
   if (!mileageEvents.length) return DEFAULT_YEARLY_MILEAGE
 
-  const registrationDateEvent: IMileageEvent = {
-    date: new Date(car.firstRegistrationDate),
-    mileage: 0,
-  }
+  const registrationDateEvent = getFirstRegistrationEvent(car)
   const events = sortBy([registrationDateEvent, ...mileageEvents], ['date'])
 
-  const yearlyMileage = chain(events)
-    .map((value, index) => [value, nth(events, index + 1 - events.length)])
+  return chain(events)
+    .map((value, index) => [value, nth(events, index + 1 - events.length)] as [IMileageEvent, IMileageEvent])
     .slice(0, events.length - 1)
-    // @todo add validation of mileage if it's in ascending order
+    .filter(validateOdometer)
     .map(estimateYearlyMileage)
     .mean()
     .value()
-
-  return roundToHundredths(yearlyMileage)
 }

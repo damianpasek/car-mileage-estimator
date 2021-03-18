@@ -1,0 +1,1 @@
+export const DEFAULT_YEARLY_MILEAGE = 7900

@@ -12,7 +12,7 @@ describe('Utils: Math round', () => {
       [190, 200],
       [999, 1000],
       [-55, -100],
-    ] as [number, number][])('for %i it should round to %i', (input, expected) => {
+    ] as [number, number][])('for %i it should round to %i', (input: number, expected: number) => {
       expect(roundToHundredths(input)).toBe(expected)
     })
   })

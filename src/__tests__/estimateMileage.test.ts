@@ -13,7 +13,7 @@ describe('Estimate Mileage', () => {
   describe('Unit tests', () => {
     beforeEach(() => {
       jest.spyOn(yearlyMileage, 'getYearlyMileage').mockReturnValue(1000)
-      jest.spyOn(mileageEvents, 'getMostRecentMileage').mockReturnValue(mostRecentEvent)
+      jest.spyOn(mileageEvents, 'getMostRecentMileageEvent').mockReturnValue(mostRecentEvent)
       jest.spyOn(mileageEvents, 'getNumberOfDaysToEstimate').mockReturnValue(365)
     })
 
@@ -25,7 +25,7 @@ describe('Estimate Mileage', () => {
       estimateMileage(kiaCeed, estimatedDate)
 
       expect(yearlyMileage.getYearlyMileage).toHaveBeenCalledWith(kiaCeed)
-      expect(mileageEvents.getMostRecentMileage).toHaveBeenCalledWith(kiaCeed, estimatedDate)
+      expect(mileageEvents.getMostRecentMileageEvent).toHaveBeenCalledWith(kiaCeed, estimatedDate)
       expect(mileageEvents.getNumberOfDaysToEstimate).toHaveBeenCalledWith(mostRecentEvent.date, estimatedDate)
     })
 
@@ -38,13 +38,14 @@ describe('Estimate Mileage', () => {
 
   describe('Integration test', () => {
     it.each([
+      ['2020-12-01', 26000, kiaCeed],
       ['2021-06-01', 31000, kiaCeed],
-      ['2022-06-01', 54200, fordFiesta],
+      ['2022-06-01', 54100, fordFiesta],
       ['2022-01-01', 7900, mazda3],
       ['2023-01-01', 15800, mazda3],
     ] as [string, number, ICar][])(
       'on %s date car should have %i mileage',
-      (date, expectedMileage, car) => {
+      (date: string, expectedMileage: number, car: ICar) => {
         expect(estimateMileage(car, new Date(date))).toBe(expectedMileage)
       },
     )
