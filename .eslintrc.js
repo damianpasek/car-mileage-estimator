@@ -22,7 +22,7 @@ module.exports = {
   rules: {
     'comma-dangle': ['error', 'always-multiline'],
     'no-unused-vars': 'off',
-    'max-len': ['error', { code: 100 }],
+    'max-len': ['error', { code: 120 }],
     '@typescript-eslint/no-unused-vars': 'error',
     'camelcase': 'off',
     '@typescript-eslint/no-unused-vars': [

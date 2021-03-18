@@ -1,7 +1,7 @@
 import { ICar, IMileageEvent } from './interfaces/Car'
 import {
   getMostRecentMileage,
-  getNumberOfDaysToEstimate
+  getNumberOfDaysToEstimate,
 } from './utils/mileageEstimator/mileageEvents'
 import { getYearlyMileage } from './utils/mileageEstimator/yearlyMileage'
 
