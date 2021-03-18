@@ -23,12 +23,39 @@ export const mockedCars: ICar[] = [
         mileage: 20000,
         result: true
       } as IMOTEvent,
-      // {
-      //   date: new Date('01-12-2020'),
-      //   mileage: 26000,
-      //   from_vrm: 'vrm_1',
-      //   to_vrm: 'vrm_2'
-      // } as IVRMChangeEvent
+      {
+        date: new Date('01-12-2020'),
+        mileage: 25000,
+        from_vrm: 'vrm_1',
+        to_vrm: 'vrm_2'
+      } as IVRMChangeEvent
     ]
+  },
+  {
+    vin: 'vin_number_2',
+    vrm: 'vrm_3',
+    make: 'Ford',
+    model: 'Fiesta',
+    firstRegistrationDate: new Date('01-04-2019'),
+    mileageEvents: [
+      {
+        date: new Date('01-04-2020'),
+        mileage: 15000,
+        result: true
+      } as IMOTEvent,
+      {
+        date: new Date('01-10-2019'),
+        mileage: 25000,
+        price: 25000
+      } as ISaleAdvertisementEvent,
+    ]
+  },
+  {
+    vin: 'vin_number_3',
+    vrm: 'vrm_4',
+    make: 'Mazda',
+    model: '3',
+    firstRegistrationDate: new Date('01-01-2021'),
+    mileageEvents: []
   }
 ]
