@@ -1,3 +1,5 @@
+import differenceInCalendarDays from 'date-fns/differenceInCalendarDays'
+import { chain } from 'lodash'
 import { ICar, IMileageEvent } from '../../interfaces/Car'
 
 export const getFirstRegistrationEvent = (car: ICar): IMileageEvent => ({
@@ -6,8 +8,21 @@ export const getFirstRegistrationEvent = (car: ICar): IMileageEvent => ({
 })
 
 export const getMostRecentMileage = (car: ICar, estimationDate: Date): IMileageEvent => {
+  const { mileageEvents } = car
+
+  if (!mileageEvents.length) return getFirstRegistrationEvent(car)
+
+  return chain(mileageEvents)
+    .sortBy(['date'])
+    .filter(event => event.date <= estimationDate)
+    .last()
+    .value()
 }
 
 export const getNumberOfDaysToEstimate = (mostRecentDate: Date, estimatedDate: Date): number => {
+  const daysDifference = differenceInCalendarDays(mostRecentDate, estimatedDate)
 
+  if (daysDifference < 0) throw new Error('Days to estimate cannot be below zero')
+
+  return daysDifference
 }

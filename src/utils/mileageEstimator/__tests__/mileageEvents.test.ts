@@ -2,7 +2,7 @@ import { mockedCars } from '../../../__mocks__/car.mocks'
 import {
   getFirstRegistrationEvent,
   getMostRecentMileage,
-  getNumberOfDaysToEstimate
+  getNumberOfDaysToEstimate,
 } from '../mileageEvents'
 
 describe('Mileage events', () => {
@@ -12,12 +12,12 @@ describe('Mileage events', () => {
     it('should return IMileageEvent object containing initial mileage', () => {
       expect(getFirstRegistrationEvent(kiaCeed)).toEqual({
         date: new Date('2018-06-01'),
-        mileage: 0
+        mileage: 0,
       })
 
       expect(getFirstRegistrationEvent(mazda3)).toEqual({
         date: new Date('2021-01-01'),
-        mileage: 0
+        mileage: 0,
       })
     })
   })
@@ -44,9 +44,12 @@ describe('Mileage events', () => {
     it.each([
       ['2021-03-18', '2021-03-10', 8],
       ['2021-03-10', '2021-03-10', 0],
-    ] as [string, string, number][])('for given dates %s, %s it should return %i', (mostRecentDate, estimatedDate, expected) => {
-      expect(getNumberOfDaysToEstimate(new Date(mostRecentDate), new Date(estimatedDate))).toBe(expected)
-    })
+    ] as [string, string, number][])(
+      'for given dates %s, %s it should return %i',
+      (mostRecentDate, estimatedDate, expected) => {
+        expect(getNumberOfDaysToEstimate(new Date(mostRecentDate), new Date(estimatedDate))).toBe(expected)
+      },
+    )
 
     it('should throw an error when difference is less than 0', () => {
       expect(() => getNumberOfDaysToEstimate(new Date('2021-03-10'), new Date('2021-03-17')))
